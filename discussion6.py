@@ -1,5 +1,6 @@
 import unittest
 import os
+import csv
 
 
 def load_csv(f):
@@ -18,6 +19,35 @@ def load_csv(f):
     base_path = os.path.abspath(os.path.dirname(__file__))
     full_path = os.path.join(base_path, f)
     # use this 'full_path' variable as the file that you open
+    with open(full_path) as data:
+        csv_reader = csv.reader(data)
+        rows = []
+        for row in csv_reader:
+            rows.append(row)
+
+
+    headers = rows[0]
+
+    d = {}
+    for header in headers[1:]:
+        d[header] = {}
+    
+    col = 1
+    for year in d:
+        for row in rows[1:]:
+            month = row[0]
+            d[year][month] = row[col]
+        col += 1
+
+    print(d)
+    
+
+    
+
+
+
+
+
 
 def get_annual_max(d):
     '''
@@ -67,7 +97,13 @@ class dis7_test(unittest.TestCase):
         self.assertAlmostEqual(self.month_avg_dict['2020'], 398, 0)
 
 def main():
-    unittest.main(verbosity=2)
+    #unittest.main(verbosity=2)
+    print("----------------------------------------------------------------------")
+    flight_dict = load_csv('daily_visitors.csv')
+    #print("Output of load_csv:", flight_dict, "\n")
+    #print("Output of get_annual_max:", get_annual_max(flight_dict), "\n")
+    #print("Output of get_month_avg:", get_month_avg(flight_dict), "\n")
+
 
 if __name__ == '__main__':
     main()
