@@ -39,15 +39,7 @@ def load_csv(f):
             d[year][month] = row[col]
         col += 1
 
-    print(d)
-    
-
-    
-
-
-
-
-
+    return d
 
 def get_annual_max(d):
     '''
@@ -61,6 +53,12 @@ def get_annual_max(d):
     Note: Don't strip or otherwise modify strings. Do not change datatypes except where necessary.
         You'll have to change vals to int to compare them. 
     '''
+
+    year = d[list(d.keys())[0]] #first year in d
+    month = list(d[list(d.keys())[0]].keys())[0] #first month in first year in d
+    maximum = d[list(d.keys())[0]][list(d[list(d.keys())[0]].keys())[0]] #first num in first month in first year in d
+    
+    
     pass
 
 def get_month_avg(d):
@@ -100,8 +98,8 @@ def main():
     #unittest.main(verbosity=2)
     print("----------------------------------------------------------------------")
     flight_dict = load_csv('daily_visitors.csv')
-    #print("Output of load_csv:", flight_dict, "\n")
-    #print("Output of get_annual_max:", get_annual_max(flight_dict), "\n")
+    print("Output of load_csv:", flight_dict, "\n")
+    print("Output of get_annual_max:", get_annual_max(flight_dict), "\n")
     #print("Output of get_month_avg:", get_month_avg(flight_dict), "\n")
 
 
